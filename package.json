@@ -1,0 +1,12 @@
+{
+  "name": "openapi-generator-typescript-fetch-swr",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "openapi-generator-cli generate -i https://petstore.swagger.io/v2/swagger.json -g typescript-fetch -t ./template -o ./out --additional-properties useSingleRequestParameter=true --additional-properties enumPropertyNaming=original --additional-properties=typescriptThreePlus=true"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.5",
+    "swr": "^2.2.4"
+  }
+}
