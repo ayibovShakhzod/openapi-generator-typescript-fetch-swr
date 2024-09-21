@@ -459,7 +459,7 @@ export class {{classname}} extends runtime.BaseAPI {
     {{^allParams.3}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = (() => {
         const key = ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{^-last}}, {{/-last}}{{/allParams}}) => this.{{nickname}}RequestOpts({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }{{/allParams.0}});
-        const fetcher = (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context));
+        const fetcher = (key: any) => this.swrFetch(this.{{nickname}}Fetch(key));
         const fn = ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>): SWRMutationResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> => {
             return useSWRMutation<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}), fetcher, config);
         }
@@ -470,7 +470,7 @@ export class {{classname}} extends runtime.BaseAPI {
     {{#allParams.3}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = (() => {
         const key = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>) => this.{{nickname}}RequestOpts({{#allParams.0}}requestParameters{{/allParams.0}});
-        const fetcher = (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context));
+        const fetcher = (key: any) => this.swrFetch(this.{{nickname}}Fetch(key));
         const fn = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>): SWRMutationResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> => {
             return useSWRMutation<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key(requestParameters), fetcher, config);
         }
