@@ -4,11 +4,6 @@
 {{#model}}
 {{^withoutRuntimeChecks}}
 export * from './{{{ classFilename }}}';
-{{#useSagaAndRecords}}
-{{^isEnum}}
-export * from './{{{ classFilename }}}Record';
-{{/isEnum}}
-{{/useSagaAndRecords}}
 {{/withoutRuntimeChecks}}
 {{#withoutRuntimeChecks}}
 {{#isEnum}}

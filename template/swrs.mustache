@@ -1,0 +1,273 @@
+"use client"
+/* tslint:disable */
+/* eslint-disable */
+{{>licenseInfo}}
+
+import * as runtime from '../runtime';
+import useSWR, { SWRConfiguration, SWRResponse } from "swr";
+import useSWRImmutable from "swr/immutable";
+import useSWRMutation, { SWRMutationConfiguration, SWRMutationResponse } from "swr/mutation";
+
+{{#imports.0}}
+import {
+    {{#imports}}
+    {{className}}{{^-last}}, {{/-last}}
+    {{/imports}}
+} from '../models';
+{{/imports.0}}
+
+{{#hasEnums}}
+{{#operations}}
+{{#operation}}
+{{#allParams}}
+{{#isEnum}}
+
+import {
+    {{operationIdCamelCase}}{{enumName}}{{^-last}}, {{/-last}}
+} from './{{classname}}';
+{{/isEnum}}
+{{/allParams}}
+{{/operation}}
+{{/operations}}
+{{/hasEnums}}
+
+{{#operations}}
+{{#operation}}
+{{^useSingleRequestParameter}}
+{{#prefixParameterInterfaces}}
+import {
+    {{classname}}{{operationIdCamelCase}}Request{{^-last}}, {{/-last}}
+} from './{{classname}}';
+{{/prefixParameterInterfaces}}
+{{/useSingleRequestParameter}}
+{{/operation}}
+{{/operations}}
+
+{{#operations}}
+{{#operation}}
+{{#useSingleRequestParameter}}
+import {
+    {{operationIdCamelCase}}Request{{^-last}}, {{/-last}}
+} from './{{classname}}';
+{{/useSingleRequestParameter}}
+{{/operation}}
+{{/operations}}
+
+
+{{#operations}}
+{{#operation}}
+/**
+{{#notes}}
+* {{&notes}}
+{{/notes}}
+{{#summary}}
+* {{&summary}}
+{{/summary}}
+*/
+{{^useSingleRequestParameter}}
+{{^allParams.3}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = (() => {
+    const fn = (
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{^-last}}, {{/-last}}{{/allParams}}) => runtime.RequestOpts,
+        fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams}}
+        {{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}
+        config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{^-last}}, {{/-last}}{{/allParams}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWR<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/allParams.3}}
+{{/useSingleRequestParameter}}
+
+{{^useSingleRequestParameter}}
+{{#allParams.3}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = (() => {
+    const fn = (
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}, {{/allParams.0}}) => runtime.RequestOpts,
+        fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}
+        config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}, {{/allParams.0}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWR<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/allParams.3}}
+{{/useSingleRequestParameter}}
+
+{{#useSingleRequestParameter}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = (() => {
+    const fn = (
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}, {{/allParams.0}}) => runtime.RequestOpts,
+        fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}
+        config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}, {{/allParams.0}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWR<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/useSingleRequestParameter}}
+
+/**
+{{#notes}}
+* {{&notes}}
+{{/notes}}
+{{#summary}}
+* {{&summary}} 
+{{/summary}}
+*/
+{{^useSingleRequestParameter}}
+{{^allParams.3}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable = (() => {
+    const fn = (
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{^-last}}, {{/-last}}{{/allParams}}) => runtime.RequestOpts,
+        fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams}}
+        {{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}
+        config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{^-last}}, {{/-last}}{{/allParams}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWRImmutable<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/allParams.3}}
+{{/useSingleRequestParameter}}
+
+{{^useSingleRequestParameter}}
+{{#allParams.3}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable = (() => {
+    const fn = (
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts,
+        fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}
+        config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWRImmutable<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/allParams.3}}
+{{/useSingleRequestParameter}}
+
+{{#useSingleRequestParameter}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable = (() => {
+    const fn = (
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts,
+        fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}
+        config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWRImmutable<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/useSingleRequestParameter}}
+
+
+/**
+{{#notes}}
+* {{&notes}}
+{{/notes}}
+{{#summary}}
+* {{&summary}}
+{{/summary}}
+*/
+{{^useSingleRequestParameter}}
+{{^allParams.3}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = (() => {
+    const fn = (
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{^-last}}, {{/-last}}{{/allParams}}) => runtime.RequestOpts,
+        fetcher: (args: any) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams}}
+        {{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}
+        config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRMutationResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}{{^-last}}, {{/-last}}{{/allParams}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWRMutation<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/allParams.3}}
+{{/useSingleRequestParameter}}
+
+{{^useSingleRequestParameter}}
+{{#allParams.3}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = (() => {
+    const fn = (
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts,
+        fetcher: (args: any) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}
+        config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRMutationResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWRMutation<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/allParams.3}}
+{{/useSingleRequestParameter}}
+
+{{#useSingleRequestParameter}}
+export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = (() => {
+    const fn = (
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts,
+        fetcher: (args: any) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
+        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}
+        config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
+    ): SWRMutationResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
+        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts
+    } => {
+        return {
+            ...useSWRMutation<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            key: key
+        }
+    }
+    return fn
+})()
+{{/useSingleRequestParameter}}
+
+
+{{/operation}}
+
+{{/operations}}

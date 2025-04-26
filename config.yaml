@@ -1,0 +1,15 @@
+files:
+  apis.index.mustache:
+    folder: apis
+    destinationFilename: index.ts
+    templateType: SupportingFiles
+  apis.mustache:
+    templateType: API
+    destinationFilename: .ts
+  swrs.mustache:
+    templateType: API
+    destinationFilename: Swr.ts
+  index.mustache:
+    folder: ./
+    templateType: SupportingFiles
+    destinationFilename: index.ts
