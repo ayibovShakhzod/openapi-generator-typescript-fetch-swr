@@ -45,11 +45,13 @@ import {
 
 {{#operations}}
 {{#operation}}
+{{#allParams.0}}
 {{#useSingleRequestParameter}}
 import {
     {{operationIdCamelCase}}Request{{^-last}}, {{/-last}}
 } from './{{classname}}';
 {{/useSingleRequestParameter}}
+{{/allParams.0}}
 {{/operation}}
 {{/operations}}
 
@@ -90,15 +92,15 @@ export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = (() =>
 {{#allParams.3}}
 export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = (() => {
     const fn = (
-        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}, {{/allParams.0}}) => runtime.RequestOpts,
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => runtime.RequestOpts,
         fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
-        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}
+        {{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}
         config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
     ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
-        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}, {{/allParams.0}}) => runtime.RequestOpts
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => runtime.RequestOpts,
     } => {
         return {
-            ...useSWR<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            ...useSWR<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}{{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} {{/allParams.0}}), fetcher, config),
             key: key
         }
     }
@@ -160,15 +162,15 @@ export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable
 {{#allParams.3}}
 export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable = (() => {
     const fn = (
-        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts,
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => runtime.RequestOpts,
         fetcher: (context: runtime.RequestOpts) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
-        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}
+        {{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}
         config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
     ): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
-        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => runtime.RequestOpts,
     } => {
         return {
-            ...useSWRImmutable<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            ...useSWRImmutable<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}{{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} {{/allParams.0}}), fetcher, config),
             key: key
         }
     }
@@ -231,15 +233,15 @@ export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation 
 {{#allParams.3}}
 export const {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = (() => {
     const fn = (
-        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts,
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => runtime.RequestOpts,
         fetcher: (args: any) => Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>,
-        {{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}
+        {{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}
         config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>,
     ): SWRMutationResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> & {
-        key: ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}}{{/hasRequiredParams}}{{^-last}}, {{/-last}}{{/allParams.0}}) => runtime.RequestOpts
+        key: ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => runtime.RequestOpts,
     } => {
         return {
-            ...useSWRMutation<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}requestParameters{{^-last}}, {{/-last}}{{/allParams.0}}), fetcher, config),
+            ...useSWRMutation<{{{returnType}}}{{^returnType}}void{{/returnType}}>(() => key({{#allParams.0}}{{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} {{/allParams.0}}), fetcher, config),
             key: key
         }
     }
