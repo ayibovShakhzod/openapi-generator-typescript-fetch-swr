@@ -2,6 +2,10 @@
   "name": "openapi-generator-typescript-fetch-swr",
   "version": "1.0.0",
   "description": "",
+  "files": [
+    "template",
+    "config.yaml"
+  ],
   "scripts": {
     "test": "rm -rf ./out && openapi-generator-cli generate -c config.yaml -i ./schema.json -g typescript-fetch -t ./template -o ./out --additional-properties useSingleRequestParameter=false --additional-properties enumPropertyNaming=original --additional-properties=typescriptThreePlus=true --type-mappings=set=Array --language-specific-primitives=Array && rm -rf ./out.zip  && zip -r out.zip out"
   },
