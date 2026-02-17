@@ -1,3 +1,5 @@
+typeMappings:
+  set: Array
 files:
   apis.index.mustache:
     folder: apis

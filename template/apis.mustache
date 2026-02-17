@@ -116,7 +116,7 @@ export class {{classname}} extends runtime.BaseAPI {
             queryParameters['{{baseName}}'] = requestParameters.{{paramName}};
             {{/isCollectionFormatMulti}}
             {{^isCollectionFormatMulti}}
-            queryParameters['{{baseName}}'] = {{#uniqueItems}}Array.from({{/uniqueItems}}requestParameters.{{paramName}}{{#uniqueItems}}){{/uniqueItems}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
+            queryParameters['{{baseName}}'] = requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
             {{/isCollectionFormatMulti}}
         }
 
@@ -153,7 +153,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#headerParams}}
         {{#isArray}}
         if (requestParameters.{{paramName}}) {
-            headerParameters['{{baseName}}'] = {{#uniqueItems}}Array.from({{/uniqueItems}}requestParameters.{{paramName}}{{#uniqueItems}}){{/uniqueItems}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
+            headerParameters['{{baseName}}'] = requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]);
         }
 
         {{/isArray}}
@@ -236,7 +236,7 @@ export class {{classname}} extends runtime.BaseAPI {
             })
             {{/isCollectionFormatMulti}}
             {{^isCollectionFormatMulti}}
-            formParams.append('{{baseName}}', {{#uniqueItems}}Array.from({{/uniqueItems}}requestParameters.{{paramName}}{{#uniqueItems}}){{/uniqueItems}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]));
+            formParams.append('{{baseName}}', requestParameters.{{paramName}}.join(runtime.COLLECTION_FORMATS["{{collectionFormat}}"]));
             {{/isCollectionFormatMulti}}
         }
 
@@ -323,7 +323,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {{/returnTypeIsPrimitive}}
         {{^returnTypeIsPrimitive}}
         {{#isArray}}
-        return new runtime.JSONApiResponse(response{{^withoutRuntimeChecks}}, (jsonValue) => {{#uniqueItems}}new Set({{/uniqueItems}}jsonValue.map({{returnBaseType}}FromJSON){{/withoutRuntimeChecks}}){{#uniqueItems}}){{/uniqueItems}};
+        return new runtime.JSONApiResponse(response{{^withoutRuntimeChecks}}, (jsonValue) => jsonValue.map({{returnBaseType}}FromJSON){{/withoutRuntimeChecks}});
         {{/isArray}}
         {{^isArray}}
         {{#isMap}}
