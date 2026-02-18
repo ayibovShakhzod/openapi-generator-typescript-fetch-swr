@@ -1,5 +1,5 @@
 ## Overview
-This project uses the OpenAPI Generator to create TypeScript client code with [`fetch`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fshakhzod%2FDesktop%2Fmy%2Fopenapi-generator-typescript-fetch-swr%2FREADME.md%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A21%2C%22character%22%3A86%7D%7D%2C%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fshakhzod%2FDesktop%2Fmy%2Fopenapi-generator-typescript-fetch-swr%2FREADME.md%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A0%2C%22character%22%3A31%7D%7D%5D%2C%228def593b-1430-405e-b08d-791f3a023683%22%5D "Go to definition") and [`swr`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fshakhzod%2FDesktop%2Fmy%2Fopenapi-generator-typescript-fetch-swr%2FREADME.md%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A21%2C%22character%22%3A145%7D%7D%2C%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fshakhzod%2FDesktop%2Fmy%2Fopenapi-generator-typescript-fetch-swr%2FREADME.md%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A0%2C%22character%22%3A37%7D%7D%5D%2C%228def593b-1430-405e-b08d-791f3a023683%22%5D "Go to definition") for API interactions.
+This project uses the OpenAPI Generator to create TypeScript client code with `fetch` and `swr` for API interactions.
 
 ## Configuration for Your Project
 
@@ -20,7 +20,7 @@ yarn add @openapitools/openapi-generator-cli
 ### Add Command Script
 Add the following command script to your project:
 ```json
-"<name-command>": "openapi-generator-cli generate -i <openapi-file> -g typescript-fetch -t ./node-modules/openapi-generator-typescript-fetch-swr/template -o <output-path> --additional-properties useSingleRequestParameter=true --additional-properties enumPropertyNaming=original --additional-properties=typescriptThreePlus=true"
+"<name-command>": "openapi-generator-cli generate -c ./node_modules/openapi-generator-typescript-fetch-swr/config.yaml -i <openapi-file> -g typescript-fetch -t ./node_modules/openapi-generator-typescript-fetch-swr/template -o <output-path> --additional-properties useSingleRequestParameter=false --additional-properties enumPropertyNaming=original --additional-properties typescriptThreePlus=true"
 ```
 
 #### Parameters:

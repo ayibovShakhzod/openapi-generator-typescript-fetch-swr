@@ -363,6 +363,7 @@ export class {{classname}} extends runtime.BaseAPI {
      {{/summary}}
      */
     {{^useSingleRequestParameter}}
+    {{^allParams.2}}
     {{nickname}} = async ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}initOverrides?: RequestInit): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}> => {
         {{#returnType}}
         const response = await this.{{nickname}}Raw({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }, {{/allParams.0}}initOverrides);
@@ -372,6 +373,18 @@ export class {{classname}} extends runtime.BaseAPI {
         await this.{{nickname}}Raw({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }, {{/allParams.0}}initOverrides);
         {{/returnType}}
     }
+    {{/allParams.2}}
+    {{#allParams.2}}
+    {{nickname}} = async ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}initOverrides?: RequestInit): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}> => {
+        {{#returnType}}
+        const response = await this.{{nickname}}Raw({{#allParams.0}}requestParameters, {{/allParams.0}}initOverrides);
+        return await response.value();
+        {{/returnType}}
+        {{^returnType}}
+        await this.{{nickname}}Raw({{#allParams.0}}requestParameters, {{/allParams.0}}initOverrides);
+        {{/returnType}}
+    }
+    {{/allParams.2}}
     {{/useSingleRequestParameter}}
     {{#useSingleRequestParameter}}
     {{nickname}} = async ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}initOverrides?: RequestInit): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}> => {
@@ -394,14 +407,26 @@ export class {{classname}} extends runtime.BaseAPI {
      {{/summary}}
      */
     {{^useSingleRequestParameter}}
+    {{^allParams.2}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}config?: SWRConfiguration<{{{returnType}}}{{^returnType}}void{{/returnType}}>) => {
        return swrs.{{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}(
         ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => this.{{nickname}}RequestOpts({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }{{/allParams.0}}),
         (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context)),
-        {{#allParams.0}}{{#allParams}}{{paramName}}{{^last}}, {{/last}}{{/allParams}}{{/allParams.0}}
+        {{#allParams}}{{paramName}}, {{/allParams}}
         config
        )
     }
+    {{/allParams.2}}
+    {{#allParams.2}}
+    {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRConfiguration<{{{returnType}}}{{^returnType}}void{{/returnType}}>) => {
+    return swrs.{{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}(
+        ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}) => this.{{nickname}}RequestOpts({{#allParams.0}}requestParameters{{/allParams.0}}),
+        (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context)),
+        {{#allParams.0}}requestParameters, {{/allParams.0}}
+        config
+        )
+    }
+    {{/allParams.2}}
     {{/useSingleRequestParameter}}
     {{#useSingleRequestParameter}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRConfiguration<{{{returnType}}}{{^returnType}}void{{/returnType}}>) => {
@@ -423,14 +448,26 @@ export class {{classname}} extends runtime.BaseAPI {
      {{/summary}}
      */
     {{^useSingleRequestParameter}}
+    {{^allParams.2}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable = ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}config?: SWRConfiguration<{{{returnType}}}{{^returnType}}void{{/returnType}}>) => {
        return swrs.{{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable(
         ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => this.{{nickname}}RequestOpts({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }{{/allParams.0}}),
         (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context)),
-        {{#allParams.0}}{{#allParams}}{{paramName}}{{^last}}, {{/last}}{{/allParams}}{{/allParams.0}}
+        {{#allParams}}{{paramName}}, {{/allParams}}
         config
        )
     }
+    {{/allParams.2}}
+    {{#allParams.2}}
+    {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRConfiguration<{{{returnType}}}{{^returnType}}void{{/returnType}}>) => {
+    return swrs.{{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable(
+        ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}) => this.{{nickname}}RequestOpts({{#allParams.0}}requestParameters{{/allParams.0}}),
+        (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context)),
+        {{#allParams.0}}requestParameters, {{/allParams.0}}
+        config
+        )
+    }
+    {{/allParams.2}}
     {{/useSingleRequestParameter}}
     {{#useSingleRequestParameter}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Immutable = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRConfiguration<{{{returnType}}}{{^returnType}}void{{/returnType}}>) => {
@@ -452,14 +489,26 @@ export class {{classname}} extends runtime.BaseAPI {
      {{/summary}}
      */
     {{^useSingleRequestParameter}}
+    {{^allParams.2}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>) => {
        return swrs.{{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation(
         ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}) => this.{{nickname}}RequestOpts({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }{{/allParams.0}}),
         (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context)),
-        {{#allParams.0}}{{#allParams}}{{paramName}}{{^last}}, {{/last}}{{/allParams}}{{/allParams.0}}
+        {{#allParams}}{{paramName}}, {{/allParams}}
         config
        )
     }
+    {{/allParams.2}}
+    {{#allParams.2}}
+    {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>) => {
+    return swrs.{{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation(
+        ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}) => this.{{nickname}}RequestOpts({{#allParams.0}}requestParameters{{/allParams.0}}),
+        (context: runtime.RequestOpts) => this.swrFetch(this.{{nickname}}Fetch(context)),
+        {{#allParams.0}}requestParameters, {{/allParams.0}}
+        config
+        )
+    }
+    {{/allParams.2}}
     {{/useSingleRequestParameter}}
     {{#useSingleRequestParameter}}
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}}Mutation = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{^hasRequiredParams}} = {}{{/hasRequiredParams}}, {{/allParams.0}}config?: SWRMutationConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}, any, string, never, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>) => {
