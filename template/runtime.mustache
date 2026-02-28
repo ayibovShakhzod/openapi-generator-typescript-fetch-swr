@@ -47,7 +47,16 @@ export class BaseAPI {
         return (await data).value();
       } catch (resp) {
         if (resp instanceof ApiError) {
-          throw await resp.response.json();
+          let body: any = {};
+          try {
+            body = await resp.response.json();
+          } catch {
+            // response body is not JSON
+          }
+          const error: any = new Error(body?.message || resp.message);
+          error.code = resp.response.status;
+          error.body = body;
+          throw error;
         } else {
           throw resp;
         }
