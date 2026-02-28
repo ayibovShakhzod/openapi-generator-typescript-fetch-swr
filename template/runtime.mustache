@@ -39,25 +39,17 @@ export class BaseAPI {
         if (response.status >= 200 && response.status < 300) {
             return response;
         }
-        throw new ApiError(url, init, response);
+        let body: any;
+        try {
+            body = await response.json();
+        } catch {
+            throw new ApiError(url, init, response);
+        }
+        throw body;
     }
 
     protected async swrFetch<T extends any>(data: Promise<ApiResponse<T>>): Promise<T> {
-      try {
         return (await data).value();
-      } catch (resp) {
-        if (resp instanceof ApiError) {
-          let body: any;
-          try {
-            body = await resp.response.json();
-          } catch {
-            throw resp;
-          }
-          throw body;
-        } else {
-          throw resp;
-        }
-      }
     }
 
     private createFetchParams(context: RequestOpts, initOverrides?: RequestInit) {
