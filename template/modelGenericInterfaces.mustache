@@ -12,6 +12,45 @@ export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
      * {{#lambda.indented_star_4}}{{{unescapedDescription}}}{{/lambda.indented_star_4}}
      * @type {{=<% %>=}}{<%&datatype%>}<%={{ }}=%>
      * @memberof {{classname}}
+     {{#dataFormat}}
+     * @format {{.}}
+     {{/dataFormat}}
+     {{#minLength}}
+     * @minLength {{.}}
+     {{/minLength}}
+     {{#maxLength}}
+     * @maxLength {{.}}
+     {{/maxLength}}
+     {{#pattern}}
+     * @pattern {{{.}}}
+     {{/pattern}}
+     {{#minimum}}
+     * @minimum {{.}}{{#exclusiveMinimum}} (exclusive){{/exclusiveMinimum}}
+     {{/minimum}}
+     {{#maximum}}
+     * @maximum {{.}}{{#exclusiveMaximum}} (exclusive){{/exclusiveMaximum}}
+     {{/maximum}}
+     {{#multipleOf}}
+     * @multipleOf {{.}}
+     {{/multipleOf}}
+     {{#minItems}}
+     * @minItems {{.}}
+     {{/minItems}}
+     {{#maxItems}}
+     * @maxItems {{.}}
+     {{/maxItems}}
+     {{#uniqueItems}}
+     * @uniqueItems
+     {{/uniqueItems}}
+     {{#minProperties}}
+     * @minProperties {{.}}
+     {{/minProperties}}
+     {{#maxProperties}}
+     * @maxProperties {{.}}
+     {{/maxProperties}}
+     {{#deprecated}}
+     * @deprecated
+     {{/deprecated}}
      */
     {{#isReadOnly}}readonly {{/isReadOnly}}{{name}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};
 {{/vars}}

@@ -27,6 +27,53 @@ import {
 {{#allParams.0}}
 export interface {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request {
 {{#allParams}}
+    {{#hasValidation}}
+    /**
+     {{#dataFormat}}
+     * @format {{.}}
+     {{/dataFormat}}
+     {{#minLength}}
+     * @minLength {{.}}
+     {{/minLength}}
+     {{#maxLength}}
+     * @maxLength {{.}}
+     {{/maxLength}}
+     {{#pattern}}
+     * @pattern {{{.}}}
+     {{/pattern}}
+     {{#minimum}}
+     * @minimum {{.}}{{#exclusiveMinimum}} (exclusive){{/exclusiveMinimum}}
+     {{/minimum}}
+     {{#maximum}}
+     * @maximum {{.}}{{#exclusiveMaximum}} (exclusive){{/exclusiveMaximum}}
+     {{/maximum}}
+     {{#multipleOf}}
+     * @multipleOf {{.}}
+     {{/multipleOf}}
+     {{#minItems}}
+     * @minItems {{.}}
+     {{/minItems}}
+     {{#maxItems}}
+     * @maxItems {{.}}
+     {{/maxItems}}
+     {{#uniqueItems}}
+     * @uniqueItems
+     {{/uniqueItems}}
+     {{#minProperties}}
+     * @minProperties {{.}}
+     {{/minProperties}}
+     {{#maxProperties}}
+     * @maxProperties {{.}}
+     {{/maxProperties}}
+     */
+    {{/hasValidation}}
+    {{^hasValidation}}
+    {{#dataFormat}}
+    /**
+     * @format {{.}}
+     */
+    {{/dataFormat}}
+    {{/hasValidation}}
     {{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};
 {{/allParams}}
 }
